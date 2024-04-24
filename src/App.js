@@ -1,11 +1,29 @@
+import {Component} from 'react';
 import './App.css';
 
 const Header = () => {
 	return <h2>Hello World!</h2>;
 };
 
-const Field = () => {
-	return <input placeholder='Type here' type="text" />;
+// const Field = () => {
+// 	const holder = 'enter here';
+// 	const styleField = {
+// 		width: '300px'
+// 	};
+// 	return <input placeholder={holder} type="text" style={styleField}/>;
+// }
+
+class Field extends Component {
+	render() {
+		const holder = 'enter here';
+		const styleField = {
+			width: '300px'
+		};
+		return <input
+				placeholder={holder}
+				type="text"
+				style={styleField}/>;
+	}
 }
 
 function Btn() {
@@ -28,4 +46,5 @@ function App() {
 	);
 }
 
+export {Header};
 export default App;
