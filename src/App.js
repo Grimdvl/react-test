@@ -51,7 +51,10 @@ class WhoAmI extends Component {
 		this.state = {
 			years: 27,
 			text: '+++',
+			position: '',
 		}
+		// второй способ привязать контекст зис вместо стрелочніх функций this.nextYear = this.nextYear.bind(this);
+		// третий способ пригождаеться когда мі хоти передать какой нибудь аргумент в обработчик события onClick={() => this.nextYear()} немного теряет в оптимизации если мі переиспользуем в новом компоненте так как перерисовіваеться колбек заново
 	}
 	nextYear = () => {
 		console.log('+++');
@@ -59,13 +62,27 @@ class WhoAmI extends Component {
 			years: state.years + 1
 		}));
 	}
+	commitInputChanges = (e, color) => {
+		console.log(color);
+		this.setState({
+			position: e.target.value,
+		});
+	}
 	render() {
 		const { name, surname, link } = this.props;
+		const { position, years } = this.state;
 		return (
 			<div>
 				<button onClick={this.nextYear}>{this.state.text}</button>
-				<h1>My name is {name}, surname - {surname.firstSurname}, age - {this.state.years}</h1>
+				<h1>My name is {name},
+					surname - {surname.firstSurname}, 
+					age - {years}, 
+					position - {position}</h1>
 				<a href={link()}>My profile</a>
+				<form>
+					<span>Enter your position</span>
+					<input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')}/>
+				</form>
 			</div>
 		)
 	}
