@@ -1,9 +1,39 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
 import './App.css';
 
-const Header = () => {
-	return <h2>Hello World!</h2>;
-};
+const EmpItem = styled.div`
+	padding: 20px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+	a {
+		display: block;
+		margin: 10px 0 10px 0;
+		color: ${prop => prop.active ? 'orange' : 'black'};
+	}
+	input {
+		display: block;
+		margin-top: 10px;
+	}
+`;
+
+const Header = styled.h2`
+	font-size: 22px;
+`;
+
+export const Button = styled.button`
+	display: block;
+	padding: 5px 15px;
+	background-color: gold;
+	border: 1px solid rgba(0,0,0, .2);
+	box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+`;
+
+// const Header = () => {
+// 	return <h2>Hello World!</h2>;
+// };
 
 // const Field = () => {
 // 	const holder = 'enter here';
@@ -72,32 +102,39 @@ class WhoAmI extends Component {
 		const { name, surname, link } = this.props;
 		const { position, years } = this.state;
 		return (
-			<div>
-				<button onClick={this.nextYear}>{this.state.text}</button>
-				<h1>My name is {name},
+			<EmpItem active={true}>
+				<Button onClick={this.nextYear}>{this.state.text}</Button>
+				<Header>My name is {name},
 					surname - {surname.firstSurname}, 
 					age - {years}, 
-					position - {position}</h1>
+					position - {position}</Header>
 				<a href={link()}>My profile</a>
 				<form>
 					<span>Enter your position</span>
 					<input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')}/>
 				</form>
-			</div>
+			</EmpItem>
 		)
 	}
 }
 
+const Wrapper = styled.div`
+	width: 600px;
+	margin: 80px auto 0 auto;
+`;
+
 function App() {
 	return (
-		<div className="App">
-			<Header/>
-			<WhoAmI name="Jhon" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}}/>
-			<WhoAmI name='Ivan' surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}}/>
-			<WhoAmI name="Alex" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}}/>
-			<Field/>
-			<Btn/>
-		</div>
+		<Wrapper>
+			<div className="App">
+				{/* <Header/> */}
+					<WhoAmI name="Jhon" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={1}/>
+					<WhoAmI name='Ivan' surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={2}/>
+					<WhoAmI name="Alex" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={3}/>
+				<Field/>
+				<Btn/>
+			</div>
+		</Wrapper>
 	);
 }
 

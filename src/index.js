@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {Header} from './App';
+import { Button } from './App';
+import styled from 'styled-components';
+
+const BigButton = styled(Button)`
+	margin: 0 auto;
+	width: 245px;
+	text-align: center;
+`;
 
 // const elem = <h2>Hello World!</h2>;
 // const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!');
@@ -29,5 +37,6 @@ root.render(
 		// <Header/>,
 	<StrictMode>
 		<App/>
+		<BigButton as="a">Send</BigButton>
 	</StrictMode>
 );
