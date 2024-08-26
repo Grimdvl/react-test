@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import BootstrapTest from './BootstrapTest';
 import {Container} from 'react-bootstrap';
+import ReactDOM from 'react-dom';
 
 import './App.css';
 
@@ -215,6 +216,21 @@ import './App.css';
 // }
 
 class Form extends Component {
+	state = {
+		advOpen: false
+	}
+
+	componentDidMount() {
+		setTimeout(this.handleClick, 3000);
+	}
+
+	handleClick = () => {
+		this.setState(({advOpen}) => ({
+			advOpen: !advOpen
+		}))
+		// console.log('click');
+	}
+
 	// constructor(props) {
 	// 	super(props);
 	// 	this.myRef = React.createRef();
@@ -242,7 +258,7 @@ class Form extends Component {
     render() {
         return (
             <Container>
-                <form className="w-50 border mt-5 p-3 m-auto" 
+                <form onClick={this.handleClick} className="w-50 border mt-5 p-3 m-auto" 
                 style={{'overflow': 'hidden', 
                         'position': 'relative'}}>
                     <div className="mb-3">
@@ -260,19 +276,37 @@ class Form extends Component {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
                         <textarea onClick={this.focusFirstTi} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                    <div 
-                    style={{'width': '500px', 
-                            'height': '150px', 
-                            'backgroundColor': 'red', 
-                            'position': 'absolute', 
-                            'right': '-50%', 
-                            'bottom': '-50%'}}>
-                        Hello
-                    </div>
+					{
+						this.state.advOpen ?
+							<Portal>
+								<Msg/>
+							</Portal> : null
+					}
                 </form>
             </Container>
         )
     }
+}
+
+const Portal = (props) => {
+	const node = document.createElement('div');
+	document.body.appendChild(node);
+
+	return ReactDOM.createPortal(props.children, node);
+}
+
+const Msg = () => {
+	return (
+		<div
+			style={{'width': '500px', 
+				'height': '150px', 
+				'backgroundColor': 'red', 
+				'position': 'absolute', 
+				'right': '0', 
+				'bottom': '0'}}>
+			Hello
+		</div>
+	)
 }
 
 class TextInput extends Component {
