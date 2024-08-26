@@ -1,11 +1,15 @@
 import {Container, Row, Col, Carousel, Form, Button} from 'react-bootstrap';
 
-const BootstrapTest = () => {
+const BootstrapTest = (props) => {
     return (
         <Container>
             <Row>
-                <Col>1 of 2</Col>
-                <Col>2 of 2</Col>
+                <Col>
+                    {props.left}
+                </Col>
+                <Col>
+                    {props.right}
+                </Col>
             </Row>
             <Form>
                 <Form.Group className="mb-5 mt-5" controlId="formBasicEmail">

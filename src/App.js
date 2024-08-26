@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import BootstrapTest from './BootstrapTest';
 
 import './App.css';
 
@@ -59,11 +60,13 @@ class Field extends Component {
 function Btn() {
 	const text = 'log in';
 	const res = () => {
-		return 'log in';
+		return text;
 	}
-	const p = <p>log in</p>;
+	// const p = <p>log in</p>;
 	const logged = false;
-	return <button>{logged ? 'Enter' : res()}</button>;
+	return (
+		<button>{logged ? 'Enter' : res()}</button>
+	);
 }
 
 // function WhoAmI ({name, surname, link}) {
@@ -123,14 +126,40 @@ const Wrapper = styled.div`
 	margin: 80px auto 0 auto;
 `;
 
+const DynamicGreating = (props) => {
+	return (
+		<div className={'mb-3 p-3 border border-' + props.color}>
+			{/* {props.children} */}
+			{
+				React.Children.map(props.children, child => {
+					return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'});
+				})
+			}
+		</div>
+	)
+}
+
 function App() {
 	return (
 		<Wrapper>
 			<div className="App">
+				<BootstrapTest
+					left = {
+						<DynamicGreating color={'primary'}>
+							<h2>This weel was hard</h2>
+							<h2>Hello world!</h2>
+						</DynamicGreating>
+					}
+					right = {
+						<DynamicGreating color={'primary'}>
+							<h2>RIGHT!</h2>
+						</DynamicGreating>
+					}
+				/>
 				{/* <Header/> */}
-					<WhoAmI name="Jhon" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={1}/>
-					<WhoAmI name='Ivan' surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={2}/>
-					<WhoAmI name="Alex" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={3}/>
+				<WhoAmI name="Jhon" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={1}/>
+				<WhoAmI name='Ivan' surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={2}/>
+				<WhoAmI name="Alex" surname={{firstSurname: 'Smith'}} link={() => {return "facebook.com"}} key={3}/>
 				<Field/>
 				<Btn/>
 			</div>
