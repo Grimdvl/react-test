@@ -9,11 +9,11 @@ import styled from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const BigButton = styled(Button)`
-	margin: 0 auto;
-	width: 245px;
-	text-align: center;
-`;
+// const BigButton = styled(Button)`
+// 	margin: 0 auto;
+// 	width: 245px;
+// 	text-align: center;
+// `;
 
 // const elem = <h2>Hello World!</h2>;
 // const elem = React.createElement('h2', {className: 'greetings'}, 'Hello World!');
@@ -40,7 +40,7 @@ root.render(
 		// <Header/>,
 	<StrictMode>
 		<App/>
-		<BigButton as="a">Send</BigButton>
+		{/* <BigButton as="a">Send</BigButton> */}
 		{/* <BootstrapTest/> */}
 	</StrictMode>
 );
