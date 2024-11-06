@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useRef } from 'react';
 import styled from 'styled-components';
 import BootstrapTest from './BootstrapTest';
 import {Container} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
+import { CSSTransition } from 'react-transition-group';
 
 import './App.css';
 
@@ -215,119 +216,192 @@ import './App.css';
 // 	);
 // }
 
-class Form extends Component {
-	state = {
-		advOpen: false
-	}
+// class Form extends Component {
+// 	state = {
+// 		advOpen: false
+// 	}
 
-	componentDidMount() {
-		setTimeout(this.handleClick, 3000);
-	}
+// 	componentDidMount() {
+// 		setTimeout(this.handleClick, 3000);
+// 	}
 
-	handleClick = () => {
-		this.setState(({advOpen}) => ({
-			advOpen: !advOpen
-		}))
-		// console.log('click');
-	}
+// 	handleClick = () => {
+// 		this.setState(({advOpen}) => ({
+// 			advOpen: !advOpen
+// 		}))
+// 		// console.log('click');
+// 	}
 
-	// constructor(props) {
-	// 	super(props);
-	// 	this.myRef = React.createRef();
+// 	// constructor(props) {
+// 	// 	super(props);
+// 	// 	this.myRef = React.createRef();
+// 	// }
+// 	// myRef = React.createRef();
+// 	// mySecondRef = React.createRef();
+
+// 	// componentDidMount() {
+// 	// 	this.myRef.current.focus();
+// 	// 	// this.myRef.current.doSmth();
+// 	// }
+
+// 	setInputRef = elem => {
+// 		//если используеться колбек то current не используеться
+// 		this.myRef = elem;
+// 	}
+
+// 	focusFirstTi = () => {
+// 		if (this.myRef) {
+// 			// this.myRef.current.focus();
+// 			this.myRef.focus();
+// 		}
+// 	}
+
+//     render() {
+//         return (
+//             <Container>
+//                 <form onClick={this.handleClick} className="w-50 border mt-5 p-3 m-auto" 
+//                 style={{'overflow': 'hidden', 
+//                         'position': 'relative'}}>
+//                     <div className="mb-3">
+//                         <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+// 						{/* <TextInput ref={this.myRef}/> */}
+// 						<input 
+// 							// ref={this.myRef}
+// 							ref={this.setInputRef}
+// 							type="email"
+// 							className="form-control"
+// 							id="exampleFormControlInput1"
+// 							placeholder="name@example.com"/>
+//                     </div>
+//                     <div className="mb-3">
+//                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+//                         <textarea onClick={this.focusFirstTi} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+//                     </div>
+// 					{
+// 						this.state.advOpen ?
+// 							<Portal>
+// 								<Msg/>
+// 							</Portal> : null
+// 					}
+//                 </form>
+//             </Container>
+//         )
+//     }
+// }
+
+// const Portal = (props) => {
+// 	const node = document.createElement('div');
+// 	document.body.appendChild(node);
+
+// 	return ReactDOM.createPortal(props.children, node);
+// }
+
+// const Msg = () => {
+// 	return (
+// 		<div
+// 			style={{'width': '500px', 
+// 				'height': '150px', 
+// 				'backgroundColor': 'red', 
+// 				'position': 'absolute', 
+// 				'right': '0', 
+// 				'bottom': '0'}}>
+// 			Hello
+// 		</div>
+// 	)
+// }
+
+// class TextInput extends Component {
+// 	doSmth = () => {
+// 		console.log('Something');
+// 	}
+
+// 	render() {
+// 		return (
+// 			<input 
+// 				type="email"
+// 				className="form-control"
+// 				id="exampleFormControlInput1"
+// 				placeholder="name@example.com"/>
+// 		);
+// 	}
+// }
+
+// function App() {
+//     return (
+//         <Form/>
+//     );
+// }
+
+const Modal = (props) => {
+
+	const duration = 300;
+	const nodeRef = useRef(null);
+
+	// const defaultStyle = {
+	// 	transition: `all ${duration}ms ease-in-out`,
+	// 	opacity: 0,
+	// 	visibility: 'hidden'
 	// }
-	// myRef = React.createRef();
-	// mySecondRef = React.createRef();
 
-	// componentDidMount() {
-	// 	this.myRef.current.focus();
-	// 	// this.myRef.current.doSmth();
+	// const transitionStyles = {
+	// 	entering: { opacity: 1, visibility: 'visible' },
+	// 	entered: { opacity: 1, visibility: 'visible' },
+	// 	exiting: { opacity: 0, visibility: 'hidden' },
+	// 	exited: { opacity: 0, visibility: 'hidden' },
 	// }
 
-	setInputRef = elem => {
-		//если используеться колбек то current не используеться
-		this.myRef = elem;
-	}
-
-	focusFirstTi = () => {
-		if (this.myRef) {
-			// this.myRef.current.focus();
-			this.myRef.focus();
-		}
-	}
-
-    render() {
-        return (
-            <Container>
-                <form onClick={this.handleClick} className="w-50 border mt-5 p-3 m-auto" 
-                style={{'overflow': 'hidden', 
-                        'position': 'relative'}}>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-						{/* <TextInput ref={this.myRef}/> */}
-						<input 
-							// ref={this.myRef}
-							ref={this.setInputRef}
-							type="email"
-							className="form-control"
-							id="exampleFormControlInput1"
-							placeholder="name@example.com"/>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                        <textarea onClick={this.focusFirstTi} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-					{
-						this.state.advOpen ?
-							<Portal>
-								<Msg/>
-							</Portal> : null
-					}
-                </form>
-            </Container>
-        )
-    }
-}
-
-const Portal = (props) => {
-	const node = document.createElement('div');
-	document.body.appendChild(node);
-
-	return ReactDOM.createPortal(props.children, node);
-}
-
-const Msg = () => {
-	return (
-		<div
-			style={{'width': '500px', 
-				'height': '150px', 
-				'backgroundColor': 'red', 
-				'position': 'absolute', 
-				'right': '0', 
-				'bottom': '0'}}>
-			Hello
-		</div>
-	)
-}
-
-class TextInput extends Component {
-	doSmth = () => {
-		console.log('Something');
-	}
-
-	render() {
-		return (
-			<input 
-				type="email"
-				className="form-control"
-				id="exampleFormControlInput1"
-				placeholder="name@example.com"/>
-		);
-	}
+    return (
+		<CSSTransition
+			in={props.show}
+			timeout={duration}
+			unmountOnExit
+			unmountOnEnter
+			onEnter={() => props.setShowTrigger(false)}
+			onExited={() => props.setShowTrigger(true)}
+			nodeRef={nodeRef}
+			classNames="modal">
+			{/* {state => ( */}
+				<div className="modal mt-5 d-block"
+					// style={{
+					// ...defaultStyle,
+					// ...transitionStyles[state]}}
+					ref={nodeRef}>
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5 className="modal-title">Typical modal window</h5>
+								<button onClick={() => props.onClose(false)} type="button" className="btn-close" aria-label="Close"></button>
+							</div>
+							<div className="modal-body">
+								<p>Modal body content</p>
+							</div>
+							<div className="modal-footer">
+								<button onClick={() => props.onClose(false)} type="button" className="btn btn-secondary">Close</button>
+								<button onClick={() => props.onClose(false)} type="button" className="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			{/* )} */}
+		</CSSTransition>
+    )
 }
 
 function App() {
+    const [showModal, setShowModal] = useState(false);
+	const [showTrigger, setShowTrigger] = useState(true);
+
     return (
-        <Form/>
+        <Container>
+			<Modal show={showModal} onClose={setShowModal} setShowTrigger={setShowTrigger}/>
+            {/* {showModal ? <Modal onClose={setShowModal}/> : null} */}
+			{showTrigger ? 
+				<button 
+				type="button" 
+				className="btn btn-warning mt-5"
+				onClick={() => setShowModal(true)}>Open Modal</button> :
+				null}
+        </Container>
     );
 }
 
